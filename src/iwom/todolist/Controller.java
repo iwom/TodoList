@@ -1,4 +1,5 @@
 package iwom.todolist;
+import iwom.todolist.datamodel.ToDoData;
 import iwom.todolist.datamodel.ToDoItem;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,7 +27,7 @@ public class Controller {
     private Label deadlineLabel;
 
     public void initialize() {
-        ToDoItem item1 = new ToDoItem("Mail John", "Tell him to do so", LocalDate.of(2018, 4, 15));
+        /*ToDoItem item1 = new ToDoItem("Mail John", "Tell him to do so", LocalDate.of(2018, 4, 15));
         ToDoItem item2 = new ToDoItem("Doctors", "Pneumonia", LocalDate.of(2018, 4, 17));
         ToDoItem item3 = new ToDoItem("Paperwork", "Call him", LocalDate.of(2018, 4, 16));
         ToDoItem item4 = new ToDoItem("Johny", "Finished", LocalDate.of(2018, 4, 10));
@@ -35,6 +36,7 @@ public class Controller {
         toDoItemList.add(item2);
         toDoItemList.add(item3);
         toDoItemList.add(item4);
+        ToDoData.getInstance().setToDoItems(toDoItemList);*/
         toDoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ToDoItem>() {
             @Override
             public void changed(ObservableValue<? extends ToDoItem> observable, ToDoItem oldValue, ToDoItem newValue) {
@@ -46,7 +48,7 @@ public class Controller {
                 }
             }
         });
-        toDoListView.getItems().setAll(toDoItemList);
+        toDoListView.getItems().setAll(ToDoData.getInstance().getToDoItems());
         toDoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         toDoListView.getSelectionModel().selectFirst();
     }
