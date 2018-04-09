@@ -4,10 +4,7 @@ import iwom.todolist.datamodel.ToDoItem;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -58,5 +55,10 @@ public class Controller {
         toDoItemView.setText(item.getDetails());
         DateTimeFormatter df = DateTimeFormatter.ofPattern("MMMM d, yyyy");
         deadlineLabel.setText("Due: " + df.format(item.getDeadline()));
+    }
+
+    @FXML
+    public void showNewItemDialog() {
+        Dialog<ButtonType> dialog = new Dialog<>();
     }
  }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<DialogPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="iwom.todolist.TodoItemDialog"
+            prefHeight="400.0" prefWidth="600.0">
+    <headerText>
+        We could put instructions here
+    </headerText>
+    <content>
+        <GridPane vgap="15" hgap="15">
+            <Label text="Short Description" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1"></Label>
+            <TextField GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3"></TextField>
+
+            <Label text="Details: " GridPane.columnIndex="0" GridPane.rowIndex="1"></Label>
+            <TextArea GridPane.rowIndex="1" GridPane.columnIndex="1"></TextArea>
+
+            <Label text="Deadline: " GridPane.rowIndex="2" GridPane.columnIndex="0"></Label>
+            <DatePicker GridPane.rowIndex="2" GridPane.columnIndex="1"></DatePicker>
+        </GridPane>
+    </content>
+</DialogPane>
