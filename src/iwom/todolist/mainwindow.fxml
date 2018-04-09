@@ -1,12 +1,30 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
 <BorderPane fx:controller="iwom.todolist.Controller"
             xmlns:fx="http://javafx.com/fxml">
     <left>
         <ListView fx:id="toDoListView" onMouseClicked="#handleClickListView"></ListView>
     </left>
     <center>
-        <TextArea fx:id="toDoItemView"></TextArea>
+        <VBox style="-fx-padding: 10; -fx-background-color: white">
+            <TextArea fx:id="toDoItemView" VBox.vgrow="ALWAYS"></TextArea>
+            <HBox>
+                <Label fx:id="deadlineLabel" style="-fx-background-color: white">
+                    <font>
+                        <Font name="Times New Roman italic" size="18"></Font>
+                    </font>
+                </Label>
+                <Label>
+                    <font>
+                        <Font name="Times New Roman italic" size="18"></Font>
+                    </font>
+                </Label>
+            </HBox>
+        </VBox>
     </center>
 </BorderPane>
