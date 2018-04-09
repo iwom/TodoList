@@ -10,12 +10,13 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <BorderPane fx:controller="iwom.todolist.Controller"
+            fx:id="mainBorderPane"
             xmlns:fx="http://javafx.com/fxml">
     <top>
         <MenuBar>
             <Menu text="File">
                 <items>
-                    <MenuItem text="New"></MenuItem>
+                    <MenuItem text="New" onAction="#showNewItemDialog"></MenuItem>
                     <SeparatorMenuItem/>
                     <MenuItem text="Exit"></MenuItem>
                 </items>

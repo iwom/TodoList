@@ -4,12 +4,17 @@ import iwom.todolist.datamodel.ToDoItem;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Controller {
     private List<ToDoItem> toDoItemList;
@@ -23,17 +28,10 @@ public class Controller {
     @FXML
     private Label deadlineLabel;
 
+    @FXML
+    private BorderPane mainBorderPane;
+
     public void initialize() {
-        /*ToDoItem item1 = new ToDoItem("Mail John", "Tell him to do so", LocalDate.of(2018, 4, 15));
-        ToDoItem item2 = new ToDoItem("Doctors", "Pneumonia", LocalDate.of(2018, 4, 17));
-        ToDoItem item3 = new ToDoItem("Paperwork", "Call him", LocalDate.of(2018, 4, 16));
-        ToDoItem item4 = new ToDoItem("Johny", "Finished", LocalDate.of(2018, 4, 10));
-        toDoItemList = new ArrayList<ToDoItem>();
-        toDoItemList.add(item1);
-        toDoItemList.add(item2);
-        toDoItemList.add(item3);
-        toDoItemList.add(item4);
-        ToDoData.getInstance().setToDoItems(toDoItemList);*/
         toDoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ToDoItem>() {
             @Override
             public void changed(ObservableValue<? extends ToDoItem> observable, ToDoItem oldValue, ToDoItem newValue) {
@@ -60,5 +58,25 @@ public class Controller {
     @FXML
     public void showNewItemDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainBorderPane.getScene().getWindow());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("todoItemDialog.fxml"));
+            dialog.getDialogPane().setContent(root);
+
+        } catch (IOException e) {
+            System.out.println("Couldn't load dialog");
+            e.printStackTrace();
+            return;
+        }
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            System.out.println("Ok pressed");
+        } else if (result.isPresent() && result.get() == ButtonType.CANCEL) {
+            System.out.println("Cancel pressed");
+        }
     }
  }
