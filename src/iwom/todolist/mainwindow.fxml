@@ -24,7 +24,7 @@
         </MenuBar>
     </top>
     <left>
-        <ListView fx:id="toDoListView" onMouseClicked="#handleClickListView"></ListView>
+        <ListView fx:id="toDoListView" onKeyPressed="#handleKeyPressed" onMouseClicked="#handleClickListView"></ListView>
     </left>
     <center>
         <VBox style="-fx-padding: 10; -fx-background-color: white">
