@@ -1,9 +1,13 @@
 package iwom.todolist;
 import iwom.todolist.datamodel.ToDoData;
 import iwom.todolist.datamodel.ToDoItem;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +21,10 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class Controller {
     private List<ToDoItem> toDoItemList;
@@ -37,6 +43,14 @@ public class Controller {
 
     @FXML
     private ContextMenu listContextMenu;
+
+    @FXML
+    private ToggleButton filterToggleButton;
+
+    private FilteredList<ToDoItem> filteredList;
+
+    private Predicate<ToDoItem> wantAllItems;
+    private Predicate<ToDoItem> wantTodaysItems;
 
     public void initialize() {
         listContextMenu = new ContextMenu();
@@ -60,7 +74,15 @@ public class Controller {
                 }
             }
         });
-        toDoListView.setItems(ToDoData.getInstance().getToDoItems());
+
+        wantAllItems = toDoItem -> true;
+        wantTodaysItems = toDoItem -> toDoItem.getDeadline().equals(LocalDate.now());
+        filteredList = new FilteredList<>(ToDoData.getInstance().getToDoItems(),
+                (ToDoItem item) -> true);
+        SortedList<ToDoItem> sortedList = new SortedList<>(filteredList,
+                Comparator.comparing(ToDoItem::getDeadline));
+        /*toDoListView.setItems(ToDoData.getInstance().getToDoItems());*/
+        toDoListView.setItems(sortedList);
         toDoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         toDoListView.getSelectionModel().selectFirst();
         toDoListView.setCellFactory(new Callback<ListView<ToDoItem>, ListCell<ToDoItem>>() {
@@ -156,5 +178,28 @@ public class Controller {
         } else if (result.isPresent() && result.get() == ButtonType.CANCEL) {
             System.out.println("Cancel pressed");
         }
+    }
+
+    public void filterButtonHandler (Event e) {
+        ToDoItem selectedItem = toDoListView.getSelectionModel().getSelectedItem();
+
+        if(filterToggleButton.isSelected()) {
+            filteredList.setPredicate(wantTodaysItems);
+            if(filteredList.isEmpty()) {
+                toDoItemView.clear();
+                deadlineLabel.setText("");
+            } else if (filteredList.contains(selectedItem)) {
+                toDoListView.getSelectionModel().select(selectedItem);
+            } else {
+                toDoListView.getSelectionModel().selectFirst();
+            }
+        } else {
+            filteredList.setPredicate(wantAllItems);
+            toDoListView.getSelectionModel().select(selectedItem);
+        }
+    }
+
+    public void handleExit() {
+        Platform.exit();
     }
  }

@@ -3,10 +3,9 @@ Paperwork	Call him	16-04-2018
 Johny	Finished	10-04-2018	
 Description	asdasd	11-04-2018	
 Nooo	asdasd	02-04-2018	
-New Info	Teste test	19-04-2018	
 Hello	asdasd	06-04-2018	
 Create	create test	18-04-2018	
-Today	today	10-04-2018	
 sdfsd	gfdgd	10-04-2018	
 asd	asd	10-04-2018	
 adasd	asdasd	11-04-2018	
+NewNote	asdasd	01-04-2018	
